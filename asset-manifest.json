@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/github.io/movie/static/css/main.0942119d.chunk.css",
+    "main.js": "/github.io/movie/static/js/main.67ccde92.chunk.js",
+    "main.js.map": "/github.io/movie/static/js/main.67ccde92.chunk.js.map",
+    "runtime-main.js": "/github.io/movie/static/js/runtime-main.43f5d616.js",
+    "runtime-main.js.map": "/github.io/movie/static/js/runtime-main.43f5d616.js.map",
+    "static/js/2.42d84b63.chunk.js": "/github.io/movie/static/js/2.42d84b63.chunk.js",
+    "static/js/2.42d84b63.chunk.js.map": "/github.io/movie/static/js/2.42d84b63.chunk.js.map",
+    "static/js/3.b8c5c88a.chunk.js": "/github.io/movie/static/js/3.b8c5c88a.chunk.js",
+    "static/js/3.b8c5c88a.chunk.js.map": "/github.io/movie/static/js/3.b8c5c88a.chunk.js.map",
+    "index.html": "/github.io/movie/index.html",
+    "static/css/main.0942119d.chunk.css.map": "/github.io/movie/static/css/main.0942119d.chunk.css.map",
+    "static/js/2.42d84b63.chunk.js.LICENSE.txt": "/github.io/movie/static/js/2.42d84b63.chunk.js.LICENSE.txt",
+    "static/media/tv.aeeffa66.svg": "/github.io/movie/static/media/tv.aeeffa66.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.43f5d616.js",
+    "static/js/2.42d84b63.chunk.js",
+    "static/css/main.0942119d.chunk.css",
+    "static/js/main.67ccde92.chunk.js"
+  ]
+}
