@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Movie from './Movie';
 import Logo from '../tv.svg';
@@ -47,16 +48,20 @@ const AllMovie = (props) => {
                                 Movie TV
                             </div>
                             <ul className="mt-2">
-                                <li onClick={() => props.history.push('/')} className="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
-                                    <div className="flex items-center">
-                                        <span className="text-sm">All Movie</span>
-                                    </div>
-                                </li>
-                                <li onClick={() => props.history.push('/favorite')} className="flex w-full justify-between text-gray-600 hover:text-indigo-700 cursor-pointer items-center mb-6">
-                                    <div className="flex items-center">
-                                        <span className="text-sm">Favorite Movie</span>
-                                    </div>
-                                </li>
+                                <Link to={'/'}>
+                                    <li className="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center">
+                                            <span className="text-sm">All Movie</span>
+                                        </div>
+                                    </li>
+                                </Link>
+                                <Link to={'/favorite'}>
+                                    <li className="flex w-full justify-between text-gray-600 hover:text-indigo-700 cursor-pointer items-center mb-6">
+                                        <div className="flex items-center">
+                                            <span className="text-sm">Favorite Movie</span>
+                                        </div>
+                                    </li>
+                                </Link>
                             </ul>
                         </div>
                     </div>
@@ -82,16 +87,20 @@ const AllMovie = (props) => {
                                     </div>
                                     <div className="px-8">
                                         <ul className="mt-2">
-                                        <li className="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
-                                            <div className="flex items-center">
-                                                <span className="text-sm">All Movie</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex w-full justify-between text-gray-600 hover:text-indigo-700 cursor-pointer items-center mb-6">
-                                            <div className="flex items-center">
-                                                <span className="text-sm">Favorite Movie</span>
-                                            </div>
-                                        </li>
+                                            <Link to={'/'}>
+                                                <li className="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
+                                                    <div className="flex items-center">
+                                                        <span className="text-sm">All Movie</span>
+                                                    </div>
+                                                </li>
+                                            </Link>
+                                            <Link to={'/favorite'}>
+                                                <li className="flex w-full justify-between text-gray-600 hover:text-indigo-700 cursor-pointer items-center mb-6">
+                                                    <div className="flex items-center">
+                                                        <span className="text-sm">Favorite Movie</span>
+                                                    </div>
+                                                </li>
+                                            </Link>
                                         </ul>
                                     </div>
                                 </div>

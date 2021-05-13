@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const IMAGE_API = 'https://image.tmdb.org/t/p/w1280';
 const DEFAULT_IMG = 'https://images.unsplash.com/photo-1587389832557-d012ed24b42d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80';
