@@ -107,10 +107,10 @@ const FavoriteMovie = (props) => {
                         {/* Navigation end */}
 
                        {/* Content */}
-                        <div className="grid lg:grid-cols-6 sm:grid-cols-2 md:grid-cols-3 items-center justify-center flex">
+                        <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 items-center justify-center flex">
                             {movies.length ? movies.map((movie) => {
                               return  <Movie key={movie.id} {...movie} />
-                            }) : <></>}
+                            }) : <h1 className="ml-10 mt-10" >No Movie selected! Select movie)</h1>}
                         </div>
                     </div>
                 </div>

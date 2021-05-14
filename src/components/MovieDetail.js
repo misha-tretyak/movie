@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
+import useAxios from 'axios-hooks';
 import Logo from '../tv.svg';
 
 const IMAGE_API = 'https://image.tmdb.org/t/p/w1280';
+const URL_API = 'https://api.themoviedb.org/3/';
+const API_KEY = '96aa09220754ff3d7e85f718424d9995';
 
-const MovieDetail = ({poster_path, title, overview, release_date}) => {
+const MovieDetail = () => {
     const [show, setShow] = useState(false);
     const [favorite, setFavorite] = useState(false)
     const [details, setDetails] = useState({});
@@ -14,17 +16,19 @@ const MovieDetail = ({poster_path, title, overview, release_date}) => {
     const id = history.location.pathname.split('/')[2];
     const list = JSON.parse(localStorage.getItem('favorite'));
 
+    const [{ data, loading, error }] = useAxios(URL_API + `movie/${id}?api_key=` + API_KEY);
     useEffect(() => {
-        axios
-        .get(`https://api.themoviedb.org/3/movie/${id}?api_key=96aa09220754ff3d7e85f718424d9995`)
-        .then((res) => {
-            setDetails(res.data);
-            const movieInList = list.filter((movie) => movie.id === res.data.id)[0];
+        if (loading) return <p>Loading...</p>
+        if (error) return <p>Error!</p>
+        setDetails(data);
+    
+        if (list) {
+            const movieInList = list.filter((movie) => movie.id === data.id)[0];
             if (movieInList) {
-                setFavorite(true);            
+                setFavorite(true);           
             }
-        });
-    });
+        }
+    }, [data])
 
     const AddToList = () => {        
         if (list) {
@@ -149,7 +153,14 @@ const MovieDetail = ({poster_path, title, overview, release_date}) => {
                                     <h3 className="font-bold text-4xl md:text-2xl lg:text-2xl text-gray-800 movie--title">{details.title}</h3>
                                     <span className="movie--year text-xl lg:text-sm lg:mb-4">{details.release_date}</span>
                                     <div className="flex-grow">
-                                        <p className="text-xl md:text-base lg:text-base text-gray-800 leading-snug truncate-overflow">{details.overview}</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-800 leading-snug truncate-overflow">Overview:</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-600 leading-snug truncate-overflow">{details.overview}</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-800 leading-snug truncate-overflow">Budget:</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-600 leading-snug truncate-overflow">{details.budget}</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-800 leading-snug truncate-overflow">Runtime:</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-600 leading-snug truncate-overflow">{details.runtime}</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-800 leading-snug truncate-overflow">Original language:</p>
+                                        <p className="text-xl md:text-base lg:text-base text-gray-600 leading-snug truncate-overflow">{details.original_language}</p>
                                     </div>
                                     <div className="button-container flex justify-end mb-2">
                                         <button onClick={!favorite ? AddToList : RemoveFromList} className="text-indigo-700 bg-transparent border-indigo-700 dark:text-gray-100 dark:bg-indigo-700 border px-4 py-2 text-sm font-medium leading-3 rounded focus:outline-none mt-5 hover:opacity-50">

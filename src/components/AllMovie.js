@@ -1,39 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import useAxios from 'axios-hooks';
 import Movie from './Movie';
 import Logo from '../tv.svg';
+import Pagination from "react-js-pagination";
 
-const MOVIES_API = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=96aa09220754ff3d7e85f718424d9995&page=1';
-const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?&api_key=96aa09220754ff3d7e85f718424d9995&query=';
+const API_KEY = '96aa09220754ff3d7e85f718424d9995';
+const URL_API = 'https://api.themoviedb.org/3/';
+const MOVIES_API = `${URL_API}discover/movie?sort_by=popularity.desc&api_key=${API_KEY}&page=`;
+const SEARCH_API = `${URL_API}search/movie?&api_key=${API_KEY}&query=`;
 
 const AllMovie = (props) => {
     const [show, setShow] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [movies, setMovies] = useState([]);
+    const [totalMovies, setTotalMovies] = useState(0);
+    const [page, setPage] = useState(1);
+
+    const [{ data, loading, error }, refetch] = useAxios(MOVIES_API + page);
 
     useEffect(() => {
-        axios
-        .get(MOVIES_API)
-        .then((res) => setMovies(res.data.results));
-    }, []);
+        if (loading) return <p>Loading...</p>
+        if (error) return <p>Error!</p>
+        console.log(data);
+        setMovies(data.results);
+        setTotalMovies(data.total_results);
+    }, [data]);
 
     const searchMovie = (e) => {
         e.preventDefault();
 
         if (searchQuery) {
-            axios
-            .get(SEARCH_API + searchQuery)
-            .then((res) => setMovies(res.data.results));
+            refetch(SEARCH_API + searchQuery+ '&page=' + page);
         } else {
-            axios
-            .get(MOVIES_API)
-            .then((res) => setMovies(res.data.results));
+            refetch(MOVIES_API + 1);
         }
     }
 
     const changeQuery = (e) => {
         setSearchQuery(e.target.value);        
+    }
+
+    const handlePage = (e) => {
+        setPage(e);
     }
 
     return (
@@ -143,13 +152,28 @@ const AllMovie = (props) => {
                         {/* Navigation end */}
 
                         {/* Content */}
-                        <div className="grid lg:grid-cols-6 sm:grid-cols-2 md:grid-cols-3 justify-center flex">
+                        <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 ">
                             {movies.length ? movies.map((movie) => {
                             return  <Movie key={movie.id} {...movie} />
                             }) : <></>}
                         </div>
+                        <Pagination
+                            activePage={page}
+                            itemsCountPerPage={20}
+                            totalItemsCount={totalMovies}
+                            pageRangeDisplayed={5}
+                            onChange={handlePage}
+                            itemClass="border-4 border-gray-600 m-2 p-2 rounded-md font-bold"
+                            activeClass="border-4 border-indigo-700 m-2 p-2 font-bold text-indigo-700 rounded-md"
+                            innerClass="flex items-center justify-center p-5"
+                            itemClassPrev="text-indigo-700 font-bold"
+                            itemClassNext="text-indigo-700 font-bold"
+                            itemClassFirst="text-indigo-700 font-bold"
+                            itemClassLast="text-indigo-700 font-bold"
+                        />
                     </div>
                 </div>
+                
             </div>
         </>
     );
